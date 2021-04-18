@@ -1,6 +1,7 @@
 from aiocqhttp import MessageSegment
 from nonebot import on_command, CommandSession
 import sys
+import nonebot
 import json
 
 fp = open('./config', encoding='utf8')
@@ -56,7 +57,8 @@ async def setu(session: CommandSession):
                     elif code == 429:
                         print('达到调用额度限制')
                 res.append(get_cq_msg("image", src))
-                await session.send(ensure_private=json.loads(fp_text)['QQ'], message='剩余服务次数：' + str(quota))
+                bot = nonebot.get_bot()
+                await bot.send_private_msg(user_id=json.loads(fp_text)['QQ'], message='剩余服务次数：' + str(quota))
 
             except Exception:
                 src = get_pic_from_local()
