@@ -14,7 +14,7 @@ if project_src['local_project_dir'] != '':
     sys.path.append(project_src['local_project_dir'])
 import src.main.utils.option as OPT
 
-key = '93d2acd3701747a48ef977ac3629abfb'
+key = 'apikey'
 url = 'https://devapi.qweather.com/v7/weather/now?location='
 
 
