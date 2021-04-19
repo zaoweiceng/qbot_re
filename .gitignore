@@ -130,5 +130,7 @@ dmypy.json
 
 .idea/
 src/main/config
+src/main/schedule
+src/main/group_id
 src/main/config.py
 src/main/plugins/weather.py

@@ -11,7 +11,8 @@ if project_src['local_project_dir'] != '':
 import src.main.utils.option as option
 
 OPT = option.get_sql_info()
-
+db = pymysql.connect(host=OPT['host'], user=OPT['user'], passwd=OPT['password'], db=OPT['db'], port=OPT['port'],
+                         charset='utf8')
 '''
 更新数据库      write_db(uid, dir, tag) 返回Ture False
 根据uid查dir   find_dir_by_id(uid)     返回dirs[]
@@ -30,8 +31,6 @@ def write_db(uid, dir, tag):
 
 def find_tf_by_id(uid):
     flag = True
-    db = pymysql.connect(host=OPT['host'], user=OPT['user'], passwd=OPT['password'], db=OPT['db'], port=OPT['port'],
-                         charset='utf8')
     cursor = db.cursor()
     sql = """SELECT * FROM setupic WHERE uid=%s"""
     sqlargs = []
@@ -46,7 +45,6 @@ def find_tf_by_id(uid):
     except:
         print('sql错误')
     cursor.close()
-    db.close()
     if len(ids) == 0:
         flag = False
     return flag
@@ -54,8 +52,6 @@ def find_tf_by_id(uid):
 
 def insert_pic(uid, dir, tag):
     flag = True
-    db = pymysql.connect(host=OPT['host'], user=OPT['user'], passwd=OPT['password'], db=OPT['db'], port=OPT['port'],
-                         charset='utf8')
     cursor = db.cursor()
     sql = """INSERT INTO setupic(uid,dir,tag)VALUES(%s,%s,%s)"""
     sqlargs = []
@@ -73,14 +69,11 @@ def insert_pic(uid, dir, tag):
         print('sql错误')
         flag = False
     cursor.close()
-    db.close()
     return flag
 
 
 def update_pic(uid, dir, tag):
     flag = True
-    db = pymysql.connect(host=OPT['host'], user=OPT['user'], passwd=OPT['password'], db=OPT['db'], port=OPT['port'],
-                         charset='utf8')
     cursor = db.cursor()
     sql = """UPDATE setupic SET dir=%s,tag=%s WHERE uid=%s"""
     sqlargs = []
@@ -101,8 +94,6 @@ def update_pic(uid, dir, tag):
 
 
 def find_dir_by_id(uid):
-    db = pymysql.connect(host=OPT['host'], user=OPT['user'], passwd=OPT['password'], db=OPT['db'], port=OPT['port'],
-                         charset='utf8')
     cursor = db.cursor()
     sql = """SELECT * FROM setupic WHERE uid=%s"""
     sqlargs = []
@@ -117,14 +108,11 @@ def find_dir_by_id(uid):
     except:
         print('sql错误')
     cursor.close()
-    db.close()
     print(dirs)
     return dirs
 
 
 def find_ids_by_tag(tag):
-    db = pymysql.connect(host=OPT['host'], user=OPT['user'], passwd=OPT['password'], db=OPT['db'], port=OPT['port'],
-                         charset='utf8')
     cursor = db.cursor()
     sql = """SELECT * FROM setupic WHERE tag LIKE %s"""
     tag = '%' + tag + '%'
@@ -140,6 +128,5 @@ def find_ids_by_tag(tag):
     except:
         print('sql错误')
     cursor.close()
-    db.close()
     print(ids)
     return ids

@@ -61,7 +61,7 @@ async def reminder(session: CommandSession):
         run_date=datetime.datetime.now() + delta
     )
     bot = nonebot.get_bot()
-    if group_send_id != '1':
+    if send == '1':
         scheduler.add_job(
             func=bot.send_group_msg,  # 要添加任务的函数，不要带参数
             trigger=trigger,  # 触发器
